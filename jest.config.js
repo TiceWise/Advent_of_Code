@@ -1,4 +1,6 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node'
-};
+  testEnvironment: 'node',
+  transform: {
+    '\\.[jt]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }],
+  },
+}

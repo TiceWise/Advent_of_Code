@@ -1,126 +1,39 @@
 import { getAoCInputData } from './utils/getAoCInputData'
 
-AoC2020Day3()
+// getAnswer()
 
-interface Incr {
-    rightIncr: number
-    downIncr: number
+async function getAnswer() {
+  const day = 1
+  const year = 2022
+  const input = await getAoCInputData(day, year)
+  const answer = AoC2022Day1(input)
+  console.log(`answer day ${day}.1: ${answer.answerQuestion1}`)
+  console.log(`answer day ${day}.2: ${answer.answerQuestion2}`)
 }
 
-export async function AoC2020Day3() {
-    const day = 3
-    let input = await getAoCInputData(day, 2020)
-    let stringArray = input.split('\n')
-
-    console.log(stringArray)
-
-    const rightIncr = 3
-    const downIncr = 1
-
-    const noTrees = countTrees({ rightIncr, downIncr }, stringArray)
-
-    console.log(`answer day ${day}.1: ${noTrees}`)
-
-    let incrs: Incr[] = [
-        { rightIncr: 1, downIncr: 1 },
-        { rightIncr: 3, downIncr: 1 },
-        { rightIncr: 5, downIncr: 1 },
-        { rightIncr: 7, downIncr: 1 },
-        { rightIncr: 1, downIncr: 2 },
-    ]
-
-    const trees: number[] = incrs.map((incr) => countTrees(incr, stringArray))
-
-    const noTotTrees = trees.reduce((accum, current) => accum * current, 1)
-    console.log(`answer day ${day}.2: ${noTotTrees}`)
+interface Answer {
+  answerQuestion1: number
+  answerQuestion2: number
 }
 
-function countTrees(incr: Incr, stringArray: string[]) {
-    let noTrees = 0
-    let x = 0
-    let y = 0
+export function AoC2022Day1(input: string): Answer {
+  let answerQuestion1 = 0
+  let answerQuestion2 = 0
 
-    const noRows = stringArray.length
-    const noCols = stringArray[0].length
-
-    while (y < noRows) {
-        const pos = stringArray[y][x % noCols]
-        if (pos === '#') {
-            noTrees++
+  const stringArray = input.split('\n')
+  const numberArray = stringArray.map((inputStr) => parseInt(inputStr))
+  for (let i = 0; i < stringArray.length; i++) {
+    for (let j = i + 1; j < stringArray.length; j++) {
+      if (numberArray[i] + numberArray[j] === 2020) {
+        answerQuestion1 = numberArray[i] * numberArray[j]
+      }
+      for (let k = j + 1; k < stringArray.length; k++) {
+        if (numberArray[i] + numberArray[j] + numberArray[k] === 2020) {
+          answerQuestion2 = numberArray[i] * numberArray[j] * numberArray[k]
         }
-        x += incr.rightIncr
-        y += incr.downIncr
+      }
     }
-    return noTrees
-}
+  }
 
-export async function AoC2020Day2() {
-    const day = 2
-    let input = await getAoCInputData(day, 2020)
-    let stringArray = input.split('\n')
-
-    stringArray.pop()
-
-    interface PasswordPolicy {
-        min: number
-        max: number
-        letterToCheck: string
-        password: string
-    }
-
-    let data: PasswordPolicy[] = stringArray.map((inString) => {
-        const [leftPart, rightPart] = inString.split(': ')
-        const [range, letter] = leftPart.split(' ')
-        const [minStr, maxStr] = range.split('-')
-        return {
-            password: rightPart,
-            letterToCheck: letter,
-            min: parseInt(minStr),
-            max: parseInt(maxStr),
-        }
-    })
-
-    let numberOfValid = 0
-    data.forEach((datapoint) => {
-        const charCount = (datapoint.password.match(new RegExp(datapoint.letterToCheck, 'g')) || []).length
-        if (charCount >= datapoint.min && charCount <= datapoint.max) {
-            // valid
-            numberOfValid++
-        }
-    })
-
-    console.log(`answer day ${day}.1: ${numberOfValid}`)
-
-    let numberOfValid2 = 0
-    data.forEach((datapoint) => {
-        const firstChar = datapoint.password[datapoint.min - 1]
-        const secondChar = datapoint.password[datapoint.max - 1]
-
-        if (
-            (firstChar === datapoint.letterToCheck || secondChar === datapoint.letterToCheck) &&
-            !(firstChar === datapoint.letterToCheck && secondChar === datapoint.letterToCheck)
-        ) {
-            numberOfValid2++
-        }
-    })
-    console.log(`answer day ${day}.2: ${numberOfValid2}`)
-}
-
-export async function AoC2020Day1() {
-    let input = await getAoCInputData(1, 2020)
-    let stringArray = input.split('\n')
-
-    let numberArray = stringArray.map((inputStr) => parseInt(inputStr))
-    for (let i = 0; i < stringArray.length; i++) {
-        for (let j = i + 1; j < stringArray.length; j++) {
-            if (numberArray[i] + numberArray[j] === 2020) {
-                console.log(`answer day 1.1: ${numberArray[i] * numberArray[j]}`)
-            }
-            for (let k = j + 1; k < stringArray.length; k++) {
-                if (numberArray[i] + numberArray[j] + numberArray[k] === 2020) {
-                    console.log(`answer day 1.2: ${numberArray[i] * numberArray[j] * numberArray[k]}`)
-                }
-            }
-        }
-    }
+  return { answerQuestion1, answerQuestion2 }
 }
