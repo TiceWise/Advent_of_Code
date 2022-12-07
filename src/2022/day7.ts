@@ -87,7 +87,7 @@ export function AoC2022Day7(input: string): Answer {
     return 0
   }
 
-  // only run once!
+  // only run once! (or reset dirSize for each child in the 'else if' in getSize)
   getSize(rootDir)
 
   // part 2: smallest we can delete?
