@@ -32,30 +32,34 @@ export function AoC2022Day7(input: string): Answer {
   let currentDir: Directory = { name: '', children: [], dirSize: 0 }
   const rootDir: Directory = { name: '/', children: [], dirSize: 0 }
 
-  let doLs = false
+  let inLsMode = false
 
   dataIn.forEach((terminalLine) => {
     if (terminalLine[0] === '$') {
-      doLs = false
+      inLsMode = false
       const command = terminalLine.slice(2)
       const [commandAction, commandInput] = command.split(' ')
       if (commandAction === 'cd') {
         if (commandInput === '/') {
           currentDir = rootDir
         } else if (commandInput === '..') {
-          currentDir = currentDir.parent!
+          if (currentDir.parent) {
+            currentDir = currentDir.parent
+          }
         } else {
+          // assume that we always first ls in each dir, but this seems true
           currentDir = currentDir.children.find((child) => child.name === commandInput && !isFile(child)) as Directory // fix this force
         }
       } else if (commandAction === 'ls') {
-        doLs = true
+        inLsMode = true
       }
-    } else if (doLs) {
+    } else if (inLsMode) {
       const [dirOrSize, dirOrFileName] = terminalLine.split(' ')
       if (dirOrSize === 'dir') {
+        // don't add directory if we already have it, but probably only ls once in each directory
         const childDir = currentDir.children.find((child) => child.name === dirOrFileName && !isFile(child))
         if (!childDir) {
-          const newDir = { name: dirOrFileName, children: [], parent: currentDir, dirSize: 0 }
+          const newDir: Directory = { name: dirOrFileName, children: [], parent: currentDir, dirSize: 0 }
           currentDir.children.push(newDir)
         }
       } else {
@@ -64,7 +68,7 @@ export function AoC2022Day7(input: string): Answer {
     }
   })
 
-  let sumAnswer = 0
+  let sumOfSmallDirs = 0
   const listOfDirSize: number[] = []
 
   function getSize(input: File | Directory): number {
@@ -75,7 +79,7 @@ export function AoC2022Day7(input: string): Answer {
         input.dirSize += getSize(child)
       })
       if (input.dirSize < 100000) {
-        sumAnswer += input.dirSize
+        sumOfSmallDirs += input.dirSize
       }
       listOfDirSize.push(input.dirSize)
       return input.dirSize
@@ -94,5 +98,5 @@ export function AoC2022Day7(input: string): Answer {
 
   const deleteOptions = listOfDirSize.filter((dirSize) => dirSize > spaceRequired)
 
-  return { answerQuestion1: sumAnswer, answerQuestion2: Math.min(...deleteOptions) }
+  return { answerQuestion1: sumOfSmallDirs, answerQuestion2: Math.min(...deleteOptions) }
 }

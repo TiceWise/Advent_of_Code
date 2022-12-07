@@ -26,7 +26,7 @@ const input =
   '7214296 k\n' +
   'n'
 
-describe.only('AoC 2022 day 7', () => {
+describe('AoC 2022 day 7', () => {
   it('should correctly answer question 1', () => {
     expect(AoC2022Day7(input).answerQuestion1).toBe(95437)
   })
