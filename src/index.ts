@@ -6,6 +6,12 @@ import { AoC2022Day10 } from './2022/day10'
 // ascending: numberArray.sort((a, b) => a - b)
 // alphabetically: numberArray.sort()
 
+// const input = fs
+//   .readFileSync('/Users/thijsdegroot/WebstormProjects/AoC2022/src/utils/Question10_NAVARAmac.txt', {
+//     encoding: 'utf8',
+//   })
+//   .toString()
+
 getAnswer()
 
 async function getAnswer() {
