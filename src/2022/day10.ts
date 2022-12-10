@@ -1,4 +1,5 @@
 import { Answer } from '../models/models'
+import { Layout, Plot, plot } from 'nodeplotlib'
 
 export function AoC2022Day10(input: string): Answer {
   const dataIn = input.split('\n')
@@ -10,7 +11,8 @@ export function AoC2022Day10(input: string): Answer {
   const displayWidth = 40
   const displayHeight = 6
 
-  const display = [...Array(displayHeight)].map(() => Array(displayWidth).fill('.'))
+  const display = [...Array(displayHeight)].map(() => Array(displayWidth).fill(' '))
+  const displayBit = [...Array(displayHeight)].map(() => Array(displayWidth).fill(0))
 
   function doCycleAndCalculateSignal() {
     // start of cycle
@@ -21,6 +23,7 @@ export function AoC2022Day10(input: string): Answer {
 
     if (pixel >= X - 1 && pixel <= X + 1) {
       display[displayRow][pixel] = '#'
+      displayBit[displayRow][pixel] = 1
     }
 
     cycle++
@@ -50,6 +53,22 @@ export function AoC2022Day10(input: string): Answer {
   for (let i = 0; i < display.length; i++) {
     console.log(display[i].join(''))
   }
+
+  // export type ColorScale = string | string[] | Array<[number, string]>;
+  const colorscale: Array<[number, string]> = [
+    [0, '#000B3B'],
+    [1, '#3665FF'],
+  ]
+
+  const layout: Layout = {
+    autosize: false,
+    margin: { t: 25, b: 25, l: 25, r: 25 },
+  }
+
+  // const config: Config = { fillFrame: true }
+
+  const data: Plot[] = [{ z: displayBit.reverse(), type: 'heatmap', colorscale, showscale: false }]
+  plot(data, layout)
 
   return { answerQuestion1: signalSum, answerQuestion2: 0 }
 }
