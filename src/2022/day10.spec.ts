@@ -1,12 +1,12 @@
 import { AoC2022Day10 } from './day10'
 
 describe('AoC 2022 day 10', () => {
-  it.only('should correctly answer question 1.1', () => {
+  it('should correctly answer question 1.1', () => {
     const input = 'noop\n' + 'addx 3\n' + 'addx -5\n'
     expect(AoC2022Day10(input).answerQuestion1).toBe(0)
   })
 
-  it.only('should correctly answer question 1.2', () => {
+  it('should correctly answer question 1.2', () => {
     const input =
       'addx 15\n' +
       'addx -11\n' +
