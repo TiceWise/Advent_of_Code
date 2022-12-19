@@ -119,7 +119,7 @@ export function AoC2022Day14(input: string): Answer {
     // produce sand
     let atRest = false
     let y = yIn
-    let x = xIn + newMaxY
+    let x = xIn + newMaxY // new drop point location
 
     while (!atRest && !atTipOfTop) {
       // fall down one step if possible
