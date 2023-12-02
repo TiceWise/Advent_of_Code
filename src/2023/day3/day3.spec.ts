@@ -1,8 +1,8 @@
-import { AoC2023Day2 } from './day2'
+import { AoC2023Day3 } from './day3'
 import path from 'path'
 import fs from 'fs'
 
-describe('AoC 2023 day 2', () => {
+describe.only('AoC 2023 day 3', () => {
   let inputQ1: string
   let inputQ2: string
 
@@ -14,7 +14,7 @@ describe('AoC 2023 day 2', () => {
       const fileNameQ1: string = 'inputQ1.txt'
       const filePathQ1: string = path.join(__dirname, fileNameQ1)
       inputQ1 = await readFileAsync(filePathQ1, 'utf8')
-      //
+
       // const fileNameQ2: string = 'inputQ2.txt'
       // const filePathQ2: string = path.join(__dirname, fileNameQ2)
       // inputQ2 = await readFileAsync(filePathQ2, 'utf8')
@@ -25,10 +25,10 @@ describe('AoC 2023 day 2', () => {
   })
 
   it('should correctly answer question 1', () => {
-    expect(AoC2023Day2(inputQ1).answerQuestion1).toBe(8)
+    expect(AoC2023Day3(inputQ1).answerQuestion1).toBe(10)
   })
 
   it('should correctly answer question 2', () => {
-    expect(AoC2023Day2(inputQ2).answerQuestion2).toBe(2286)
+    expect(AoC2023Day3(inputQ2).answerQuestion2).toBe(20)
   })
 })
