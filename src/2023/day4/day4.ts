@@ -5,8 +5,36 @@ export function AoC2023Day4(input: string): Answer {
 
   stringArray.pop()
 
-  const answerQuestion1 = 10
-  const answerQuestion2 = 20
+  let totalScore = 0
+  const numberOfMatches = new Array(stringArray.length).fill(1)
+
+  stringArray.forEach((card, index) => {
+    const [, numbers] = card.split(': ')
+    const [winning, having] = numbers.split(' | ')
+    const winningNumbers = winning.split(' ').map(Number)
+    const havingNumbers = having.split(' ').map(Number)
+
+    let score = 0
+    let numOfMatch = 0
+
+    havingNumbers.forEach((having) => {
+      if (winningNumbers.includes(having) && having !== 0) {
+        numOfMatch += 1
+        if (score === 0) {
+          score = 1
+        } else {
+          score = score * 2
+        }
+      }
+    })
+    for (let i = 1; i <= numOfMatch; i++) {
+      numberOfMatches[index + i] += 1 * numberOfMatches[index]
+    }
+    totalScore += score
+  })
+
+  const answerQuestion1 = totalScore
+  const answerQuestion2 = numberOfMatches.reduce((sum, current) => sum + current, 0)
 
   return { answerQuestion1, answerQuestion2 }
 }

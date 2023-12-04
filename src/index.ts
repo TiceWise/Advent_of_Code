@@ -1,5 +1,5 @@
 import { getAoCInputData } from './utils/getAoCInputData'
-import { AoC2023Day4 } from './2023/day4/day4'
+import { AoC2023Day5 } from './2023/day5/day5'
 
 // useful functions
 // descending: numberArray.sort((a, b) => b - a)
@@ -8,6 +8,7 @@ import { AoC2023Day4 } from './2023/day4/day4'
 // convert string array to number array items = rawItems.split(', ').map(Number);
 // get ascii 'c'.charCodeAt(0)
 // deepcopy: const originalMonkeys = JSON.parse(JSON.stringify(monkeys))
+// fill array with ones: const arr = new Array(stringArray.length).fill(1)
 
 // each character
 // for (let i = 0; i < str.length; i++) {
@@ -17,12 +18,12 @@ import { AoC2023Day4 } from './2023/day4/day4'
 getAnswer()
 
 async function getAnswer() {
-  const day = 4
+  const day = 5
   const year = 2023
   process.stdout.write(`input for day ${day} (${year})... `)
   const input: string = await getAoCInputData(day, year)
   console.log(`received! Calculating...`)
-  const answer = AoC2023Day4(input)
+  const answer = AoC2023Day5(input)
   console.log(`answer day ${day}.1: ${answer.answerQuestion1}`)
   console.log(`answer day ${day}.2: ${answer.answerQuestion2}`)
 }

@@ -2,7 +2,7 @@ import { AoC2023Day4 } from './day4'
 import path from 'path'
 import fs from 'fs'
 
-describe.only('AoC 2023 day 4', () => {
+describe('AoC 2023 day 4', () => {
   let inputQ1: string
   let inputQ2: string
 
@@ -23,11 +23,11 @@ describe.only('AoC 2023 day 4', () => {
     }
   })
 
-  it.only('should correctly answer question 1', () => {
-    expect(AoC2023Day4(inputQ1).answerQuestion1).toBe(10)
+  it('should correctly answer question 1', () => {
+    expect(AoC2023Day4(inputQ1).answerQuestion1).toBe(13)
   })
 
   it('should correctly answer question 2', () => {
-    expect(AoC2023Day4(inputQ2).answerQuestion2).toBe(20)
+    expect(AoC2023Day4(inputQ2).answerQuestion2).toBe(30)
   })
 })
