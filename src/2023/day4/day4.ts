@@ -18,6 +18,7 @@ export function AoC2023Day4(input: string): Answer {
     let numOfMatch = 0
 
     havingNumbers.forEach((having) => {
+      // Number parses single digits (e.g. " 6") with a 0 for the first space, so ignore those
       if (winningNumbers.includes(having) && having !== 0) {
         numOfMatch += 1
         if (score === 0) {
@@ -28,7 +29,7 @@ export function AoC2023Day4(input: string): Answer {
       }
     })
     for (let i = 1; i <= numOfMatch; i++) {
-      numberOfMatches[index + i] += 1 * numberOfMatches[index]
+      numberOfMatches[index + i] += numberOfMatches[index]
     }
     totalScore += score
   })
