@@ -1,5 +1,4 @@
 import { Answer } from '../models/models'
-import { Layout, Plot, plot } from 'nodeplotlib'
 
 export function AoC2022Day10(input: string): Answer {
   const dataIn = input.split('\n')
@@ -54,6 +53,7 @@ export function AoC2022Day10(input: string): Answer {
     console.log(display[i].join(''))
   }
 
+  /* Don't plot each time this is run
   // export type ColorScale = string | string[] | Array<[number, string]>;
   const colorscale: Array<[number, string]> = [
     [0, '#000B3B'],
@@ -69,6 +69,7 @@ export function AoC2022Day10(input: string): Answer {
 
   const data: Plot[] = [{ z: displayBit.reverse(), type: 'heatmap', colorscale, showscale: false }]
   plot(data, layout)
+  */
 
   return { answerQuestion1: signalSum, answerQuestion2: 0 }
 }

@@ -27,16 +27,16 @@ mkdir -p $project_structure
 cat <<EOF >$day_file
 import { Answer } from '../../models/models'
 
-export function AoC${year}Day${day_number}(input: string): Answer {
-  // remove last '\\n'
-  if (input.lastIndexOf('\\n') === input.length - 1) {
-    input = input.slice(0, -1)
-  }
+export function AoC2023Day7(input: string): Answer {
+  // remove last '\n'
+  input = input.endsWith('\n') ? input.slice(0, -1) : input
 
-  const stringArray = input.split('\\n')
+  const stringArray = input.split('\n')
 
-  const answerQuestion1 = 10
-  const answerQuestion2 = 20
+  const [p1, p2] = stringArray[0].split(' ').map(Number)
+
+  const answerQuestion1 = p1
+  const answerQuestion2 = p2
 
   return { answerQuestion1, answerQuestion2 }
 }
@@ -79,7 +79,10 @@ describe('AoC $year day $day_number', () => {
 EOF
 
 # Create inputQ1.txt and inputQ2.txt
-touch $input_q1_file
+cat <<EOF >$input_q1_file
+10 20
+EOF
+
 touch $input_q2_file
 
 echo "Day $day_number ($year) files created successfully at $project_structure"

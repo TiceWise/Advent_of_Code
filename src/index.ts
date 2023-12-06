@@ -1,5 +1,5 @@
 import { getAoCInputData } from './utils/getAoCInputData'
-import { AoC2023Day6 } from './2023/day6/day6'
+import { AoC2023Day7 } from './2023/day7/day7'
 
 // useful functions
 // descending: numberArray.sort((a, b) => b - a)
@@ -18,12 +18,12 @@ import { AoC2023Day6 } from './2023/day6/day6'
 getAnswer()
 
 async function getAnswer() {
-  const day = 6
+  const day = 7
   const year = 2023
   process.stdout.write(`input for day ${day} (${year})... `)
   const input: string = await getAoCInputData(day, year)
   console.log(`received! Calculating...`)
-  const answer = AoC2023Day6(input)
+  const answer = AoC2023Day7(input)
   console.log(`answer day ${day}.1: ${answer.answerQuestion1}`)
   console.log(`answer day ${day}.2: ${answer.answerQuestion2}`)
 }
