@@ -27,7 +27,7 @@ mkdir -p $project_structure
 cat <<EOF >$day_file
 import { Answer } from '../../models/models'
 
-export function AoC2023Day7(input: string): Answer {
+export function AoC2023Day${day_number}(input: string): Answer {
   // remove last '\n'
   input = input.endsWith('\n') ? input.slice(0, -1) : input
 
@@ -84,5 +84,7 @@ cat <<EOF >$input_q1_file
 EOF
 
 touch $input_q2_file
+
+git add $project_structure
 
 echo "Day $day_number ($year) files created successfully at $project_structure"
