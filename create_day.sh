@@ -78,7 +78,7 @@ describe('AoC $year day $day_number', () => {
 })
 EOF
 
-# Create inputQ1.txt and inputQ2.txt
+# Create inputQ1.txt and inputQ1b.txt
 cat <<EOF >$input_q1_file
 10 20
 EOF
