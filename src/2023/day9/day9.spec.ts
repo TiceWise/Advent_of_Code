@@ -2,7 +2,7 @@ import { AoC2023Day9 } from './day9'
 import path from 'path'
 import fs from 'fs'
 
-describe('AoC 2023 day 9', () => {
+describe.only('AoC 2023 day 9', () => {
   let inputQ1: string
   let inputQ2: string
 
