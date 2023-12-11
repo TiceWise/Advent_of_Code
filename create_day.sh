@@ -55,13 +55,10 @@ describe('AoC $year day $day_number', () => {
     try {
       const readFileAsync = fs.promises.readFile
 
-      const fileNameQ1: string = 'inputQ1.txt'
-      const filePathQ1: string = path.join(__dirname, fileNameQ1)
-      inputQ1 = await readFileAsync(filePathQ1, 'utf8')
+      inputQ1 = await readFileAsync(path.join(__dirname, 'inputQ1.txt'), 'utf8')
 
-      // const fileNameQ2: string = 'inputQ2.txt'
-      // const filePathQ2: string = path.join(__dirname, fileNameQ2)
-      // inputQ2 = await readFileAsync(filePathQ2, 'utf8')
+      // inputQ2 = await readFileAsync(path.join(__dirname, 'inputQ2.txt'), 'utf8')
+
       inputQ2 = inputQ1
     } catch (err) {
       console.error('Error reading the file:', err)
