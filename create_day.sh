@@ -11,7 +11,7 @@ fi
 
 # Extract the day number from the command line arguments
 day_number=$1
-year="2023"
+year="2024"
 
 # Define the project structure
 project_structure="src/$year/day$day_number"
@@ -27,7 +27,7 @@ mkdir -p $project_structure
 cat <<EOF >$day_file
 import { Answer } from '../../models/models'
 
-export function AoC2023Day${day_number}(input: string): Answer {
+export function AoC${year}Day${day_number}(input: string): Answer {
   // remove last '\n'
   input = input.endsWith('\n') ? input.slice(0, -1) : input
 
