@@ -20,7 +20,7 @@ describe('AoC 2024 day 1', () => {
     }
   })
 
-  it('should correctly answer question 1', () => {
+  it.only('should correctly answer question 1', () => {
     expect(AoC2024Day1(inputQ1).answerQuestion1).toBe(11)
   })
 

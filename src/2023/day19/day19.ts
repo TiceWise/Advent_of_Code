@@ -97,7 +97,7 @@ export function AoC2023Day19(input: string): Answer {
     }
   })
 
-  const answerQuestion2 = 0
+  // const answerQuestion2 = 0
 
   // starting with 'in'; 1350 (* 4000 * 4000 * 4000) go to px, the rest go to qqz
   const nextWorkFlow = 'in'
@@ -136,15 +136,15 @@ export function AoC2023Day19(input: string): Answer {
         }
       })
 
-      const options =
-        (xmas_max['x'] - xmas_min['x'] + 1) *
-        (xmas_max['m'] - xmas_min['m'] + 1) *
-        (xmas_max['a'] - xmas_min['a'] + 1) *
-        (xmas_max['s'] - xmas_min['s'] + 1)
-      console.log(
-        `{'x': (${xmas_min['x']}, ${xmas_max['x']}), 'm': (${xmas_min['m']}, ${xmas_max['m']}), 'a': (${xmas_min['a']}, ${xmas_max['a']}), 's': (${xmas_min['s']}, ${xmas_max['s']})} => ${options}`
-      )
-      return options
+      // const options =
+      //   (xmas_max['x'] - xmas_min['x'] + 1) *
+      //   (xmas_max['m'] - xmas_min['m'] + 1) *
+      //   (xmas_max['a'] - xmas_min['a'] + 1) *
+      //   (xmas_max['s'] - xmas_min['s'] + 1)
+      // console.log(
+      //   `{'x': (${xmas_min['x']}, ${xmas_max['x']}), 'm': (${xmas_min['m']}, ${xmas_max['m']}), 'a': (${xmas_min['a']}, ${xmas_max['a']}), 's': (${xmas_min['s']}, ${xmas_max['s']})} => ${options}`
+      // )
+      // return options
     }
     if (nextWorkFlow === 'R') {
       return 0

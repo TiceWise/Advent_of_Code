@@ -85,7 +85,7 @@ export function AoC2023Day1(input: string): Answer {
         digit = curDigit
       }
     })
-    console.log(digit)
+    // console.log(digit)
     resultQ2 = resultQ2 + digit
   })
 
