@@ -20,11 +20,11 @@ describe('AoC 2024 day 4', () => {
     }
   })
 
-  it.only('should correctly answer question 1', () => {
-    expect(AoC2024Day4(inputQ1).answerQuestion1).toBe(10)
+  it('should correctly answer question 1', () => {
+    expect(AoC2024Day4(inputQ1).answerQuestion1).toBe(18)
   })
 
   it('should correctly answer question 2', () => {
-    expect(AoC2024Day4(inputQ2).answerQuestion2).toBe(20)
+    expect(AoC2024Day4(inputQ2).answerQuestion2).toBe(9)
   })
 })
