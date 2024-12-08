@@ -1,8 +1,8 @@
-import { AoC2024Day1 } from './day1'
+import { AoC2024Day6 } from './day6'
 import path from 'path'
 import fs from 'fs'
 
-describe('AoC 2024 day 1', () => {
+describe('AoC 2024 day 6', () => {
   let inputQ1: string
   let inputQ2: string
 
@@ -21,10 +21,10 @@ describe('AoC 2024 day 1', () => {
   })
 
   it('should correctly answer question 1', () => {
-    expect(AoC2024Day1(inputQ1).answerQuestion1).toBe(11)
+    expect(AoC2024Day6(inputQ1).answerQuestion1).toBe(41)
   })
 
-  it('should correctly answer question 2', () => {
-    expect(AoC2024Day1(inputQ2).answerQuestion2).toBe(31)
+  it.only('should correctly answer question 2', () => {
+    expect(AoC2024Day6(inputQ2).answerQuestion2).toBe(6)
   })
 })
