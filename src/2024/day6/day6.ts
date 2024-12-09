@@ -5,6 +5,8 @@ const setPointOfInterest: Set<string> = new Set<string>()
 const hits: Set<string> = new Set<string>()
 let numberOfObjectOptions: number
 
+// TODO: clean up and make sure q1 works again
+
 function doWalk(stringArray: string[], rowStart: number, colStart: number) {
   let direction: '^' | 'v' | '<' | '>'
 
@@ -14,7 +16,7 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
 
   // const maxNumberOfSteps = stringArray.length * stringArray[0].length
 
-  let boopedOCount = 0
+  // const boopedOCount = 0
 
   let y = rowStart
   let x = colStart
@@ -24,10 +26,11 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
 
   while (true) {
     if (i > numberOfObjectOptions) {
-      // loop = true
+      loop = true
       // stringArray.forEach((row) => {
       //   console.log(row)
       // })
+      // console.log(`--------- x:${x}, y:${y}, d:${direction}`)
       // console.log('hi')
       break
     }
@@ -45,11 +48,11 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
     // for q1
     // check if current location is X
     // if (currentTile !== '^' && currentTile !== '>' && currentTile !== 'v' && currentTile !== '<') {
-    //   // if not, turn into X and count result + 1
-    //   const rowArr = [...stringArray[y]]
-    //   rowArr[x] = direction
-    //   stringArray[y] = rowArr.join('')
-    //   positionCount++
+    // if not, turn into X and count result + 1
+    // const rowArr = [...stringArray[y]]
+    // rowArr[x] = direction
+    // stringArray[y] = rowArr.join('')
+    // positionCount++
     // }
 
     if (direction === '^') {
@@ -65,23 +68,24 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
       x += 1
     }
 
+    // console.log(`--------- x:${x}, y:${y}, d:${direction}`)
     // check if next position is out of bounds, if so, we're done
     if (x < 0 || y < 0 || y > stringArray.length - 1 || x > stringArray[y].length - 1) {
       break
     }
 
-    const nextTile = stringArray[y][x]
+    let nextTile = stringArray[y][x]
     // if # go right, revert previous step
 
-    if (nextTile === 'O') {
-      boopedOCount += 1
-      if (boopedOCount > 1) {
-        loop = true
-        break
-      }
-    }
+    // if (nextTile === 'O') {
+    //   boopedOCount += 1
+    //   if (boopedOCount > 1) {
+    //     loop = true
+    //     break
+    //   }
+    // }
 
-    if (nextTile === '#' || nextTile === 'O') {
+    while (nextTile === '#' || nextTile === 'O') {
       if (direction === '^') {
         direction = '>'
         y += 1
@@ -108,6 +112,7 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
       if (direction === '>') {
         x += 1
       }
+      nextTile = stringArray[y][x]
     }
 
     i++
@@ -178,6 +183,7 @@ export function AoC2024Day6(input: string): Answer {
 
   while (setPointOfInterest.size > 0) {
     setPointOfInterest.forEach((poi) => {
+      // console.log('=========')
       const [r, c] = poi.split(',').map(Number)
       const currCopy = [...inputArray]
       const currRowStr = [...currCopy[r]]
