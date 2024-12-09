@@ -5,18 +5,12 @@ const setPointOfInterest: Set<string> = new Set<string>()
 const hits: Set<string> = new Set<string>()
 let numberOfObjectOptions: number
 
-// TODO: clean up and make sure q1 works again
-
-function doWalk(stringArray: string[], rowStart: number, colStart: number) {
+function doWalk(stringArray: string[], rowStart: number, colStart: number, count: boolean = false) {
   let direction: '^' | 'v' | '<' | '>'
 
   direction = '^'
 
-  const positionCount = 0
-
-  // const maxNumberOfSteps = stringArray.length * stringArray[0].length
-
-  // const boopedOCount = 0
+  let positionCount = 0
 
   let y = rowStart
   let x = colStart
@@ -27,33 +21,29 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
   while (true) {
     if (i > numberOfObjectOptions) {
       loop = true
-      // stringArray.forEach((row) => {
-      //   console.log(row)
-      // })
-      // console.log(`--------- x:${x}, y:${y}, d:${direction}`)
-      // console.log('hi')
       break
     }
-    // const currentTile = stringArray[y][x]
-    //
-    // if (currentTile === direction) {
-    //   loop = true
-    //   break
-    // }
+
+    if (count) {
+      const currentTile = stringArray[y][x]
+
+      if (
+        currentTile !== '^' &&
+        currentTile !== '>' &&
+        currentTile !== 'v' &&
+        currentTile !== '<'
+      ) {
+        // if not, turn into X and count result + 1
+        const rowArr = [...stringArray[y]]
+        rowArr[x] = direction
+        stringArray[y] = rowArr.join('')
+        positionCount++
+      }
+    }
 
     if (!setPointOfInterest.has(`${y},${x}`) && !setObstacleDone.has(`${y},${x}`)) {
       setPointOfInterest.add(`${y},${x}`)
     }
-
-    // for q1
-    // check if current location is X
-    // if (currentTile !== '^' && currentTile !== '>' && currentTile !== 'v' && currentTile !== '<') {
-    // if not, turn into X and count result + 1
-    // const rowArr = [...stringArray[y]]
-    // rowArr[x] = direction
-    // stringArray[y] = rowArr.join('')
-    // positionCount++
-    // }
 
     if (direction === '^') {
       y -= 1
@@ -68,22 +58,12 @@ function doWalk(stringArray: string[], rowStart: number, colStart: number) {
       x += 1
     }
 
-    // console.log(`--------- x:${x}, y:${y}, d:${direction}`)
     // check if next position is out of bounds, if so, we're done
     if (x < 0 || y < 0 || y > stringArray.length - 1 || x > stringArray[y].length - 1) {
       break
     }
 
     let nextTile = stringArray[y][x]
-    // if # go right, revert previous step
-
-    // if (nextTile === 'O') {
-    //   boopedOCount += 1
-    //   if (boopedOCount > 1) {
-    //     loop = true
-    //     break
-    //   }
-    // }
 
     while (nextTile === '#' || nextTile === 'O') {
       if (direction === '^') {
@@ -148,66 +128,36 @@ export function AoC2024Day6(input: string): Answer {
   startRowStr[colStart] = 'S'
   inputArray[rowStart!] = startRowStr.join('')
 
-  const q1ArrayCopy = [...inputArray]
-  const { positionCount } = doWalk(q1ArrayCopy, rowStart!, colStart)
+  numberOfObjectOptions = inputArray.length * inputArray[0].length - obst - 1
 
-  let options = 0
+  const q1ArrayCopy = [...inputArray]
+  const { positionCount } = doWalk(q1ArrayCopy, rowStart!, colStart, true)
 
   setObstacleDone.add(`${rowStart!},${colStart}`)
 
-  // for (let r = 0; r < inputArray.length; r++) {
-  //   // if (r % 10 === 0) {
-  //   console.log(`row: ${r} of ${inputArray.length}, ${hits.size}, ${options}`)
-  //   // }
-  //   for (let c = 0; c < inputArray[r].length; c++) {
-  //     const currCopy = [...inputArray]
-  //     const currentTile = currCopy[r][c]
-  //     if (currentTile !== '#' && currentTile !== 'S') {
-  //       const currRowStr = [...currCopy[r]]
-  //       currRowStr[c] = 'O'
-  //       currCopy[r] = currRowStr.join('')
-  //
-  //       // we could be a bit smarter; start putting obstacles at the original path, and add
-  //       const { loop } = doWalk(currCopy, rowStart!, colStart)
-  //
-  //       if (loop) {
-  //         // loop found
-  //         options += 1
-  //         hits.add(`${r},${c}`)
-  //       }
-  //     }
-  //   }
-  // }
-
-  numberOfObjectOptions = inputArray.length * inputArray[0].length - obst - 1
-
   while (setPointOfInterest.size > 0) {
+    // start putting obstacles at the original path, and add
     setPointOfInterest.forEach((poi) => {
-      // console.log('=========')
       const [r, c] = poi.split(',').map(Number)
       const currCopy = [...inputArray]
       const currRowStr = [...currCopy[r]]
       currRowStr[c] = 'O'
       currCopy[r] = currRowStr.join('')
 
-      // we could be a bit smarter; start putting obstacles at the original path, and add
       const { loop } = doWalk(currCopy, rowStart!, colStart)
 
       if (loop) {
-        // loop found
-        options += 1
         hits.add(`${r},${c}`)
       }
       setPointOfInterest.delete(poi)
       setObstacleDone.add(poi)
-      if (setPointOfInterest.size % 25 === 0) {
-        console.log(
-          `done: ${setObstacleDone.size} of ${numberOfObjectOptions}, stack: ${setPointOfInterest.size}, hits: ${hits.size}`
-        )
-      }
+      // if (setPointOfInterest.size % 100 === 0) {
+      //   console.log(
+      //     `done: ${setObstacleDone.size} of ${numberOfObjectOptions}, stack: ${setPointOfInterest.size}, hits: ${hits.size}`
+      //   )
+      // }
     })
   }
 
-  console.log(hits.size)
-  return { answerQuestion1: positionCount, answerQuestion2: options }
+  return { answerQuestion1: positionCount, answerQuestion2: hits.size }
 }
